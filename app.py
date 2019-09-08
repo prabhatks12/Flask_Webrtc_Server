@@ -9,35 +9,33 @@ bootstrap=Bootstrap(app)
 socketio=SocketIO(app)
 
 app.config['SECRET_KEY']="MY_KEY"
+user={}
 
 @app.route('/')
 def login():
-    return render_template('index.html')
+    return render_template('message.html')
 
-@app.route('/message',methods=['GET','POST'])
-def message():
-    if(request.method=='POST'):
-        data=request.form
-        name=data['name']
-        return render_template('message.html',name=name)
-    else:
-        return render_template('index.html')
+@socketio.on('Connected')
+def handle_connect(msg):
+    print(msg)
 
 @app.route('/videocall')
 def videocall():
     return render_template('videocall.html')
 
+def message():
+    render_template('message.html')
+
 @app.route('/voicecall')
 def voicecall():
     return render_template('voicecall.html')
 
-@socketio.on('connect')
-def onconnect():
-    print("connect")
+@socketio.on('RegisterFirstUser')
+def firstuser_handler(first_name):
+    user[first_name]=request.sid
+    print('First user:  name= ' + first_name + 'sid= '+ request.sid)
+    socketio.emit('AvailableUsers',user)
 
-@socketio.on('message')
-def onmessage(message):
-    print('message')
 
 if(__name__=='__main__'):
 	socketio.run(app)

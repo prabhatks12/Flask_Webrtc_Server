@@ -3,7 +3,19 @@
 {% block content %}
 
 <script type="text/javascript" src="{{ url_for('static',filename='client.js') }}"></script>
-{{ name }}
+
+<div class="cols-sm-12">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+
+        <label for="name">Enter Name</label><br>
+        <input type="text" name="name" palceholder="Your name" id="first_user"><br>
+        <button name="button" value="Submit" onclick="RegisterUser()" class="btn-primary center">Click</button>
+
+</div>
+
+<div class="col-sm-4"></div>
+</div>
 
 
 {% endblock %}

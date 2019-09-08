@@ -1,7 +1,16 @@
+const socket=io()
 
-const ws =io.connect(window.location.href)
 
-ws.on('connect', function() {
-  console.log("Connection estalished")
-  ws.send("adsd",broadcast=true)
+socket.on('connect',function(){
+    console.log("Connected");
+    socket.emit('Connected','Connected on flask side')
+});
+
+function RegisterUser(){
+var user=document.getElementById("first_user").value;
+socket.emit('RegisterFirstUser',user);
+}
+
+socket.on('AvailableUsers',function(msg){
+    console.log(msg);
 });
