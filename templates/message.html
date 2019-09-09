@@ -3,22 +3,46 @@
 {% block content %}
 
 <script type="text/javascript" src="{{ url_for('static',filename='client.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static',filename='style.js') }}">
 
 <div class="cols-sm-12">
 <div class="col-sm-4"></div>
 <div class="col-sm-4">
 
+  <!-- ~~~~~~~~~~~~~~~~~~~~  1. Registering User  ~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
   <label for="name">Enter Name</label><br>
-  <input type="text" name="name" palceholder="Your name" id="first_user"><br>
-  <button name="button" value="Submit" onclick="RegisterUser()" class="btn-primary center">Click</button>
-
-  <div>
+  <input type="text" name="name" placeholder="Your name" id="user"><br>
+  <button name="button" value="Submit" onclick="registerUser()" class="send_button">Submit name</button>
+  <div id="socketio" style="display:none">
   <br>
-  <h4>List of available Clients </h4>
-  <table id="table" style="width:100%"></table>
 
-  <p id="data">
 
+  <!-- ~~~~~~~~~~~~~~~~~~~~  2. Showing list of clients ~~~~~~~~~~~~~~~~~~~~ -->
+
+  <h4>List of available Clients.
+  <br>Make sure to click on chat button in both the clients for two way communication</h4>
+  <table id="table" style="width:100%">
+  </table>
+
+  <!-- ~~~~~~~~~~~~~~~~~~  3. Peer to Peer Communication ~~~~~~~~~~~~~~~~~~~ -->
+
+  <h3>One to One communication </h3>
+  <p id="talkto">You are not texting anyone but others can text you</p>
+  <div class="box" palceholder="text" id="dispalyMessage">
+  </div>
+  <input type="text" name="name" placeholder="Type message" id="sendMessageText">
+  <button name="button" onClick="sendMessage()" class="send_button">Send</button>
+
+  <!-- ~~~~~~~~~~~~~~~~~~  4. Broadcast Communication ~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <br><br>
+  <h3>Broadcast communication </h3>
+  <div class="box" palceholder="text" id="dispalyBroadCast">
+  </div>
+  <input type="text" name="name" placeholder="Type message" id="sendText">
+  <button name="button" onClick="broadCast()" class="send_button">Send</button>
+  <br><br>
 
   </div>
 

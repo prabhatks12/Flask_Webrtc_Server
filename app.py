@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 import pandas as pd
 import numpy as np
 from flask_socketio import SocketIO
-
+import json
 app=Flask(__name__)
 bootstrap=Bootstrap(app)
 socketio=SocketIO(app)
@@ -15,31 +15,39 @@ user={}
 def login():
     return render_template('message.html')
 
-@socketio.on('Connected')
-def handle_connect(msg):
-    print(msg)
+
+#to check for connection
+@socketio.on('connected')
+def onConnection(message):
+    print(message)
+
+#register every client
+@socketio.on('registerUser')
+def registerUser(data):
+    name=data['user']
+    user[name]=request.sid
+    session['firstuser']=name
+    socketio.emit('availableUsers',json.dumps(user))
+
+#send message in peer to peer
+@socketio.on('sendMessage')
+def sendMessage(msg,id):
+    socketio.emit('receiveMessage',msg,room=id)
+
+#send message for broadcast
+@socketio.on('sendBroadCast')
+def sendBroadCast(msg):
+    socketio.emit('receiveBroadcast',msg,broadcast=True,include_self=False)
+
 
 @app.route('/videocall')
 def videocall():
     return render_template('videocall.html')
 
-def message():
-    render_template('message.html')
 
 @app.route('/voicecall')
 def voicecall():
     return render_template('voicecall.html')
-
-@socketio.on('RegisterFirstUser')
-def firstuser_handler(first_name):
-    user[first_name]=request.sid
-    print('First user:  name= ' + first_name + 'sid= '+ request.sid)
-    socketio.emit('AvailableUsers',user)
-
-@socketio.on('ReceiveMessage')
-def ReceiveMessage(msg,id):
-    print(msg)
-    print(id)
 
 if(__name__=='__main__'):
 	socketio.run(app)
