@@ -36,6 +36,10 @@ def firstuser_handler(first_name):
     print('First user:  name= ' + first_name + 'sid= '+ request.sid)
     socketio.emit('AvailableUsers',user)
 
+@socketio.on('ReceiveMessage')
+def ReceiveMessage(msg,id):
+    print(msg)
+    print(id)
 
 if(__name__=='__main__'):
 	socketio.run(app)
