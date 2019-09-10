@@ -3,10 +3,9 @@
 Creating a chat app which provides both `personal` and `group chat` option using Flask SocketIO and also dislplaying the
 details of available clients inside a table.
 
-Sid in flask can be used inside emit method to identify any client.Thus when parameter room=request.sid is passed inside the emit
-function, the message is only sent to the particular client.
+Sid in flask can be used inside emit method to identify any client. Thus when parameter room=request.sid is passed inside the emit function, the message is only sent to the particular client.
 
-*Note*: Client can only send data to Server and not to anyother client socketIO.
+*Note*: Client can only send data to Server and not to anyother client.
 
 ## Developers Guideline
 Type the following command based on your system to create the virtual enviornment in python.
@@ -39,7 +38,7 @@ python app.py
 flask run
 ```
 
-*Note*: Please click Chat button in the `Table of available clients` for both the clients for two way communication for One to
+*Note*: Please click Chat button in the `List of available clients` for both the clients for two way communication for One to
 One or private chat. The text at the bottom of the table will change. 
 
 ## Results
