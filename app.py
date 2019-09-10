@@ -40,14 +40,5 @@ def sendBroadCast(msg):
     socketio.emit('receiveBroadcast',msg,broadcast=True,include_self=False)
 
 
-@app.route('/videocall')
-def videocall():
-    return render_template('videocall.html')
-
-
-@app.route('/voicecall')
-def voicecall():
-    return render_template('voicecall.html')
-
 if(__name__=='__main__'):
 	socketio.run(app)
