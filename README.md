@@ -1,4 +1,4 @@
-# Implementation of SocketIO in `Flask` and `Javascript`
+# SocketIO in `Flask` and `Javascript`
 
 Creating a chat app which provides both `personal` and `group chat` option using Flask SocketIO and also dislplaying the
 details of available clients inside a table.
